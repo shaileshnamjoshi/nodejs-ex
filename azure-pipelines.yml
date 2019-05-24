@@ -10,9 +10,8 @@ variables:
 
   # Azure Resource Manager connection created during pipeline creation
   azureSubscription: '4b3c37b8-0d68-43dc-943b-1d26547cf6cb'
-  
   # Web app name
-  webAppName: 'Azdemowebapp'
+  webAppName: 'TestAzureDemoWebApp'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -25,7 +24,6 @@ stages:
     displayName: Build
     pool:
       vmImage: $(vmImageName)
-      
     steps:
     - task: NodeTool@0
       inputs:
@@ -70,9 +68,8 @@ stages:
             displayName: 'Download Pipeline Artifact'
             inputs:
               buildType: 'current'
-            
           - task: AzureWebApp@1
-            displayName: 'Azure Web App Deploy: Azdemowebapp'
+            displayName: 'Azure Web App Deploy: TestAzureDemoWebApp'
             inputs:
               azureSubscription: $(azureSubscription)
               appType: webAppLinux
