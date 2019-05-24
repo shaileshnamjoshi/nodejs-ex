@@ -49,7 +49,7 @@ stages:
       displayName: 'Publish pipeline artifacts'
       inputs:
         targetPath: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-    - stage: Deploy
+- stage: Deploy
   displayName: Deploy stage
   dependsOn: Build
   condition: succeeded()
