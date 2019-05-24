@@ -9,7 +9,8 @@ trigger:
 variables:
 
   # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: '4b3c37b8-0d68-43dc-943b-1d26547cf6cb'
+  azureSubscription: '8872c62b-2161-406c-b251-e5c96cb4a19b'
+  
   # Web app name
   webAppName: 'TestAzureDemoWebApp'
 
@@ -24,6 +25,7 @@ stages:
     displayName: Build
     pool:
       vmImage: $(vmImageName)
+      
     steps:
     - task: NodeTool@0
       inputs:
@@ -68,6 +70,7 @@ stages:
             displayName: 'Download Pipeline Artifact'
             inputs:
               buildType: 'current'
+            
           - task: AzureWebApp@1
             displayName: 'Azure Web App Deploy: TestAzureDemoWebApp'
             inputs:
