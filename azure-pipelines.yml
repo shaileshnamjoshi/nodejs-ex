@@ -49,12 +49,30 @@ stages:
       displayName: 'Publish pipeline artifacts'
       inputs:
         targetPath: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-    - task: AzureRmWebAppDeployment@4
-      inputs:
-        ConnectionType: 'AzureRM'
-        azureSubscription: 'azurewebappjob'
-        appType: 'webAppLinux'
-        WebAppName: 'TestAzureDemoWebApp'
-        packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-        RuntimeStack: 'NODE|10.10'
-        StartupCommand: 'npm run start'
+    - stage: Deploy
+  displayName: Deploy stage
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    environment: 'development'
+    pool: 
+      vmImage: $(vmImageName)    
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: DownloadPipelineArtifact@1
+            displayName: 'Download Pipeline Artifact'
+            inputs:
+              buildType: 'current'
+          - task: AzureWebApp@1
+            displayName: 'Azure Web App Deploy: TestAzureDemoWebApp'
+            inputs:
+              azureSubscription: $(azureSubscription)
+              appType: webAppLinux
+              appName: $(webAppName)
+              runtimeStack: 'NODE|10.10'
+              package: $(System.ArtifactsDirectory)/drop/$(Build.BuildId).zip
+              startUpCommand: 'npm run start'
