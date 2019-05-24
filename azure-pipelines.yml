@@ -52,12 +52,9 @@ stages:
     - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
-        azureSubscription: 'FreeDemoPass(17dcac43-fd04-4cfe-b776-de1a47fc0e08)'
+        azureSubscription: 'azurewebappjob'
         appType: 'webAppLinux'
         WebAppName: 'TestAzureDemoWebApp'
-        deployToSlotOrASE: true
-        ResourceGroupName: 'TestAzureDemoWebApp'
-        SlotName: 'development'
         packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
         RuntimeStack: 'NODE|10.10'
         StartupCommand: 'npm run start'
