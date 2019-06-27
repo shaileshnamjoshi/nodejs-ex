@@ -12,7 +12,7 @@ variables:
   azureSubscription: '67ffe487-9b29-4c9e-a481-a4320a8faec0'
   
   # Web app name
-  webAppName: 'TestAzureWebApp'
+  webAppName: 'nodejstestdemo'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -72,7 +72,7 @@ stages:
               buildType: 'current'
             
           - task: AzureWebApp@1
-            displayName: 'Azure Web App Deploy: TestAzureWebApp'
+            displayName: 'Azure Web App Deploy: nodejstestdemo'
             inputs:
               azureSubscription: $(azureSubscription)
               appType: webAppLinux
